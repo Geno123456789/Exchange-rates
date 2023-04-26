@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 30%;
+}
+
+.currencies {
+  display: flex;
+}
+
+.active {
+  background: blue;
+}

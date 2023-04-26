@@ -1,0 +1,24 @@
+.container {
+  background-color: #171717;
+  height: 100px;
+}
+
+.container ul {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding-top: 35px;
+}
+
+.container .link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.container .link:hover {
+  color: #18cfab;
+  transition: all linear 0.5s;
+}
+
