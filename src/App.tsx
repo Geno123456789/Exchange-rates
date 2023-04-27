@@ -52,12 +52,12 @@ function App() {
   }
 
   useEffect(() => {
-    // setInterval(() => {
+    setInterval(() => {
       axios.get('https://www.cbr-xml-daily.ru/daily_json.js')
       .then(response => {
         setRates(response.data);
       })
-    // }, 60000)
+    }, 60000)
     axios.get('https://www.cbr-xml-daily.ru/daily_json.js')
       .then(response => {
         setRates(response.data);
