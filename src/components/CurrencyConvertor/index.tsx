@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CurrencyType } from '../../App';
 import { BlockCurrency } from '../BlockCurrency';
+import reverse from '../../image/reverse.svg'
 import styles from "./CurrencyConvertor.module.css";
 
 export type CurrencyConvertor = {
@@ -13,44 +14,43 @@ export const CurrencyConvertor: React.FC<CurrencyConvertor> = ({currency}) => {
   
   const [fromCurrency, setFromCurrency] = useState("RUB");
   const [toCurrency, setToCurrency] = useState("USD");
-  const [fromPrice, setFromPrice] = useState(0);
-  const [toPrice, setToPrice] = useState(0);
+  const [fromPrice, setFromPrice] = useState("");
+  const [toPrice, setToPrice] = useState("");
   
-
-  const currencies=Object.keys(currency)
-
-  const onChangeFromPrice = (value: number) => {
-    const result = value * (currency[fromCurrency]?.Value / currency[toCurrency]?.Value);
-    const resultRUB = toCurrency === "RUB" ? value : value / currency[toCurrency]?.Value;
-    const resultToCurrencyRUB = value * currency[fromCurrency]?.Value;
+  const onChangeFromPrice = (value: string) => {
+    const result = +value * (currency[fromCurrency]?.Value / currency[toCurrency]?.Value);
+    const resultRUB = toCurrency === "RUB" ? value : +value / currency[toCurrency]?.Value;
+    const resultToCurrencyRUB = +value * currency[fromCurrency]?.Value;
 
     if(toCurrency === "RUB" && fromCurrency !== "RUB") {
-      setToPrice(resultToCurrencyRUB)
+      setToPrice(String(resultToCurrencyRUB));
     } else if(toCurrency === "RUB" && fromCurrency === "RUB") {
-      setToPrice(value);
+      setToPrice(String(value));
     } else {
-      setToPrice(fromCurrency === "RUB" ? resultRUB : result);
+      setToPrice(fromCurrency === "RUB" ? String(resultRUB) : String(result));
     }
-    
     setFromPrice(value);
   }
   
-  const onChangeToPrice = (value: number) => {
-    const result = value * (currency[fromCurrency]?.Value / currency[toCurrency]?.Value);
-    const resultRUB = toCurrency === "RUB" ? value : value / currency[toCurrency]?.Value;
-    const resultToCurrencyRUB = value * currency[fromCurrency]?.Value;
+  const onChangeToPrice = (value: string) => {
+    const result = +value * (currency[fromCurrency]?.Value / currency[toCurrency]?.Value);
+    const resultRUB = toCurrency === "RUB" ? value : +value / currency[toCurrency]?.Value;
+    const resultToCurrencyRUB = +value * currency[fromCurrency]?.Value;
 
     if(toCurrency === "RUB" && fromCurrency !== "RUB") {
-      setFromPrice(resultToCurrencyRUB)
+      setFromPrice(String(resultToCurrencyRUB))
     } else if(toCurrency === "RUB" && fromCurrency === "RUB") {
-      setFromPrice(value);
+      setFromPrice(String(value));
     } else {
-      setFromPrice(fromCurrency === "RUB" ? resultRUB : result);
+      setFromPrice(fromCurrency === "RUB" ? String(resultRUB) : String(result));
     }
-      setToPrice(value)
   }
 
-
+  const onChangeCurrentCurrency = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
+    setFromPrice(fromPrice);
+  }
 
   useEffect(()=> {
     onChangeFromPrice(fromPrice);
@@ -60,23 +60,30 @@ export const CurrencyConvertor: React.FC<CurrencyConvertor> = ({currency}) => {
     onChangeToPrice(toPrice);
   }, [toCurrency]);
 
+
+
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Конвертер валют</h1>
-      <BlockCurrency 
-      currencies={currencies}
-      value={fromPrice}
-      currency={fromCurrency}
-      onChangeCurrency={setFromCurrency}
-      onChangeValue={onChangeFromPrice}
-      />
-      <BlockCurrency 
-      currencies={currencies}
-      value={toPrice}
-      currency={toCurrency}
-      onChangeCurrency={setToCurrency}
-      onChangeValue={onChangeToPrice}
-      />
+      <div className={styles.block}>
+        <BlockCurrency 
+          value={fromPrice}
+          currency={fromCurrency}
+          onChangeCurrency={setFromCurrency}
+          onChangeValue={onChangeFromPrice}
+        />
+        <img 
+          className={styles.reverse} 
+          src={reverse} alt="reverse arrow"
+          onClick={onChangeCurrentCurrency}
+        />
+        <BlockCurrency 
+          value={toPrice}
+          currency={toCurrency}
+          onChangeCurrency={setToCurrency}
+          onChangeValue={onChangeToPrice}
+        />
+      </div>
     </div>
   )
 }

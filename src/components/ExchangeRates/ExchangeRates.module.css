@@ -4,16 +4,31 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  margin-top: 30px;
 }
 
-button {
+select {
+  width: 12%;
+  font-size: 16px;
+}
+
+.list li {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.list li:hover {
+  color: #18cfab;
+}
+
+.updateButton {
   background-color: #18cfab;
   color: #ffffff;
-  padding: 20px 32px;
-  font-size: 20px;
+  padding: 16px 28px;
+  font-size: 18px;
   font-weight: bold;
-  border-radius: 8px;
-  margin: 0 14px;
+  border-radius: 6px;
+  margin: 0 12px;
   box-shadow: 0 -2px 0 #ffffff;
   transition: all linear 0.5s;
 }

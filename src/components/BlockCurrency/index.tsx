@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
-import { CurrencyType } from '../../App';
+import React from 'react';
 import styles from "./BlockCurrency.module.css";
 
 
 export type BlockCurrency = {
-  currencies: string[];
-  value: number;
+  value: string;
   currency: string;
   onChangeCurrency: (cur:string) => void;
-  onChangeValue: (value:number) => void;
+  onChangeValue: (value:string) => void;
 };
 
-const defaultCurrencies = ['RUB', 'USD', 'EUR', 'GBP'];
+const defaultCurrencies = ['RUB', 'USD', 'EUR', 'CHF', 'GBP'];
 
-export const BlockCurrency: React.FC<BlockCurrency> = ({currencies, value, currency, onChangeCurrency, onChangeValue }) => {
-   
+export const BlockCurrency: React.FC<BlockCurrency> = ({value, currency, onChangeCurrency, onChangeValue }) => {
   return (
     <div className={styles.container}>
     <ul className={styles.currencies}>
@@ -28,7 +25,8 @@ export const BlockCurrency: React.FC<BlockCurrency> = ({currencies, value, curre
       ))}
     </ul>
     <input
-      onChange={(e) => onChangeValue(+e.target.value)}
+      className={styles.field}
+      onChange={(e) => onChangeValue(e.target.value)}
       value={value}
       type="number"
       placeholder="0"

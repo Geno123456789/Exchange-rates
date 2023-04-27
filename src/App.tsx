@@ -61,7 +61,7 @@ function App() {
     axios.get('https://www.cbr-xml-daily.ru/daily_json.js')
       .then(response => {
         setRates(response.data);
-      })
+      }).catch(error => alert(error.message));
   }, [updateCurrency]);
 
   return (
